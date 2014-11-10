@@ -35,10 +35,8 @@ module.exports = function(mongoose){
 	
 		user.save(function(err){
 			if(!err){
-			//  return console.log(err);
 			return callback(true);
 			};
-		//return console.log('User was created');
 		});
 
 		console.log('Save command was sent');

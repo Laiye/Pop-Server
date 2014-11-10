@@ -9,13 +9,6 @@ var fs = require('fs');
 
 var app = express();
 
-// import the routes
-fs.readdirSync('routes').forEach(function(file) {
-    if ( file[0] == '.' ) return;
-    var routeName = file.substr(0, file.indexOf('.'));
-    require('./routes/' + routeName)(app, models);
-});
-
 // database path
 var dbPath = 'mongodb://localhost/popdb';
 
@@ -41,6 +34,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// import the routes
+fs.readdirSync('routes').forEach(function(file) {
+    if ( file[0] == '.' ) return;
+    var routeName = file.substr(0, file.indexOf('.'));
+    require('./routes/' + routeName)(app, models);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
