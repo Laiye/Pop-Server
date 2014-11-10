@@ -1,3 +1,14 @@
+/*
+	{
+		action: 'req',
+		param: {
+			uid: 'String',
+			password: 'String',
+			avatar: 'String',
+			sex: 'String'
+		}
+	}
+*/
 module.exports = function(app, models){
 
 	app.post('/reg', function(req, res,next){
