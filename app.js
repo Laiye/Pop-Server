@@ -5,14 +5,29 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var fs = require('fs');
 
 var app = express();
+
+// import the routes
+fs.readdirSync('routes').forEach(function(file) {
+    if ( file[0] == '.' ) return;
+    var routeName = file.substr(0, file.indexOf('.'));
+    require('./routes/' + routeName)(app, models);
+});
+
+// database path
+var dbPath = 'mongodb://localhost/popdb';
 
 // import the models
 var models = {
     User: require('./models/User')(mongoose),
     Message: require('./models/Message')(mongoose)
 };
+
+mongoose.connect(dbPath,function(err){
+    if (err) throw err;
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +48,8 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
+
+
 
 // error handlers
 

@@ -13,7 +13,7 @@ module.exports = function(mongoose){
 
 	var User = mongoose.model('User',UserSchema);
 
-	var findBuUid = function(uid,callback){
+	var findByUid = function(uid,callback){
 		User.findOne({uid: uid},function (err,doc) {
 			callback(doc);
 		});
@@ -34,7 +34,7 @@ module.exports = function(mongoose){
 		});
 	
 		user.save(function(err){
-			f(!err){
+			if(!err){
 			//  return console.log(err);
 			return callback(true);
 			};
