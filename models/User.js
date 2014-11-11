@@ -13,63 +13,131 @@ module.exports = function(mongoose){
 
 	var User = mongoose.model('User',UserSchema);
 
+	/*
+		{
+			'name': 'findByUid',
+			'param': {
+				'uid': 'id for search'
+			},
+			'callback': {
+				'doc': 'user object'
+			}
+		}
+	*/
 	var findByUid = function(uid,callback){
 		User.findOne({uid: uid},function (err,doc) {
 			callback(doc);
 		});
 	};
 
-	var regUid = function(P_uid, P_password, P_avatar, P_location,P_sex,callback){
+	/*
+		{
+			'name': 'regUid',
+			'param': {
+				'uid': 'id for reg',
+				'password': 'password',
+				'avatar': 'nickname',
+				'location': 'city',
+				'sex': 'sex'
+			},
+			'callback': {
+				'isSucc': 'ture or false'
+			}
+		}
+	*/
+	var regUid = function(uid, password, avatar, location,sex,callback){
 		var shaSum = crypto.createHash('sha256');
-		shaSum.update(P_password);
+		shaSum.update(password);
 	
-		console.log('Try to regUid: ' + P_uid);
+		console.log('Try to regUid: ' + uid);
 	
 		var user = new User({
-			uid:		P_uid,
+			uid:		uid,
 			password:	shaSum.digest('hex'),
-			avatar:	P_avatar,
-			location:	P_location,
-			sex:		P_sex
+			avatar:		avatar,
+			location:	location,
+			sex:		sex
 		});
 	
 		user.save(function(err){
 			if(!err){
-			return callback(true);
-			};
+
+				return callback(true);
+
+			}else{
+
+				return callback(false);
+
+			}
 		});
 
 		console.log('Save command was sent');
 	};
 
-	var validPassword = function(P_uid, P_password, callback){
+	/*
+		{
+			'name': 'validPassword',
+			'param': {
+				'uid': 'id for valid',
+				'password': 'password for check'
+			},
+			'callback': {
+				'doc': 'user object'
+			}
+		}
+	*/
+	var validPassword = function(uid, password, callback){
 		var shaSum = crypto.createHash('sha256');
-		shaSum.update(P_password);
-		User.findOne( { uid: P_uid, password: shaSum.digest('hex') }, function(err, doc){
+		shaSum.update(password);
+		User.findOne( { uid: uid, password: shaSum.digest('hex') }, function(err, doc){
 	  		callback(doc);
 		});
 	};
   
-	var isExist = function(P_uid, callback){
-		User.findOne( { uid: P_uid }, function(err, doc){
+	/*
+		{
+			'name': 'isExist',
+			'param': {
+				'uid': 'id for judge',
+			},
+			'callback': {
+				'doc': 'user object'
+			}
+		}
+	*/
+	var isExist = function(uid, callback){
+		User.findOne( { uid: uid }, function(err, doc){
 			callback(doc);
 		});
 	};
 
-	var addContacts = function(P_uid,P_person_uid,P_person_avatar,callback){
-		User.findOne( { uid: P_uid }, function(err,doc){
+	/*
+		{
+			'name': 'addContacts',
+			'param': {
+				'uid': 'id for valid',
+				'person_uid': 'contact uid for add',
+				'person_avatar': 'contact avatar'
+			},
+			'callback': {
+				'doc': 'user object'
+			}
+		}
+	*/
+	var addContacts = function(uid,person_uid,person_avatar,callback){
+		User.findOne( { uid: uid }, function(err,doc){
 			doc.contacts.push({
-				uid: P_person_uid,
-				avatar: P_person_avatar
+				uid: person_uid,
+				avatar: person_avatar
 			});
 
 			User.update( { _id: doc._id },{ $set: {contacts: doc.contacts}},function(err){
 				console.log('update contacts..............!!!!');
 			});
 
-			User.findOne( { uid: P_person_uid }, function(err,person_doc){
+			User.findOne( { uid: person_uid }, function(err,person_doc){
 				person_doc.contacts.push({
-					uid: P_uid,
+					uid: uid,
 					avatar: doc.avatar
 				});
 
