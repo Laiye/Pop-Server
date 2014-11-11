@@ -5,7 +5,7 @@
 			uid: 'String',
 			password: 'String',
 			avatar: 'String',
-			sex: 'String'
+			sex: 'Number'
 		}
 	}
 */
