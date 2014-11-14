@@ -38,10 +38,10 @@ module.exports = function(mongoose){
 		msg.save(function(err){
 			if(err){
 				console.log('fail to save Msg. err: ' + err);
-				callback(false);
+				return callback(false);
 			}else{
 				console.log('Msg has been saved. Detail: ' + msg);
-				callback(true);
+				return callback(true);
 			}
 				  
 		});

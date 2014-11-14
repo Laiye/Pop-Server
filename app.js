@@ -25,6 +25,8 @@ mongoose.connect(dbPath,function(err){
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+// Token Secret(jwt)
+app.set('jwtTokenSecret','laiyeah.com');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));

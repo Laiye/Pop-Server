@@ -1,11 +1,14 @@
 /*
 	{
-		action: 'req',
-		param: {
-			uid: 'String',
-			password: 'String',
-			avatar: 'String',
-			sex: 'Number'
+		"action": "/req",
+		"param": {
+			"uid": "String",
+			"password": "String",
+			"avatar": "String",
+			"sex": "Number"
+		},
+		"return": {
+			"status": "Number"
 		}
 	}
 */
