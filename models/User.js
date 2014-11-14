@@ -15,12 +15,12 @@ module.exports = function(mongoose){
 
 	/*
 		{
-			'name': 'findByUid',
-			'param': {
-				'uid': 'id for search'
+			"name": "findByUid",
+			"param": {
+				"uid": "id for search"
 			},
-			'callback': {
-				'doc': 'user object'
+			"callback": {
+				"doc": "user object"
 			}
 		}
 	*/
@@ -32,16 +32,16 @@ module.exports = function(mongoose){
 
 	/*
 		{
-			'name': 'regUid',
-			'param': {
-				'uid': 'id for reg',
-				'password': 'password',
-				'avatar': 'nickname',
-				'location': 'city',
-				'sex': 'sex'
+			"name": "regUid",
+			"param": {
+				"uid": "id for reg",
+				"password": "password",
+				"avatar": "nickname"'",
+				"location": "city",
+				"sex": "sex"
 			},
-			'callback': {
-				'isSucc': 'ture or false'
+			"callback": {
+				"isSucc": "ture or false"
 			}
 		}
 	*/
@@ -76,13 +76,13 @@ module.exports = function(mongoose){
 
 	/*
 		{
-			'name': 'validPassword',
-			'param': {
-				'uid': 'id for valid',
-				'password': 'password for check'
+			"name": "validPassword",
+			"param": {
+				"uid": "id for valid",
+				"password": "password for check"
 			},
-			'callback': {
-				'doc': 'user object'
+			"callback": {
+				"doc": "user object"
 			}
 		}
 	*/
@@ -96,12 +96,12 @@ module.exports = function(mongoose){
   
 	/*
 		{
-			'name': 'isExist',
-			'param': {
-				'uid': 'id for judge',
+			"name": "isExist",
+			"param": {
+				"uid": "id for judge",
 			},
-			'callback': {
-				'doc': 'user object'
+			"callback": {
+				"doc": "user object"
 			}
 		}
 	*/
@@ -113,14 +113,14 @@ module.exports = function(mongoose){
 
 	/*
 		{
-			'name': 'addContacts',
-			'param': {
-				'uid': 'id for valid',
-				'person_uid': 'contact uid for add',
-				'person_avatar': 'contact avatar'
+			"name": "addContacts",
+			"param": {
+				"uid": "id for valid",
+				"person_uid": "contact uid for add",
+				"person_avatar": "contact avatar"
 			},
-			'callback': {
-				'doc': 'user object'
+			"callback": {
+				"doc": "user object"
 			}
 		}
 	*/
