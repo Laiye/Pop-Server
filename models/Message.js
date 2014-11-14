@@ -10,40 +10,79 @@ module.exports = function(mongoose){
 
 	var Message = mongoose.model('Message',MessageSchema);
 
-	var saveMsg = function(P_send, P_receiver, P_content){
+	/*
+		{
+			"name": "saveMsg",
+			"param": {
+				"send": "send_uid",
+				"receiver": "receiver_uid",
+				"content": "message content"
+			},
+			"callback": {
+				"isSucc": "true or false"
+			}
+		}
+	*/
+	var saveMsg = function(send, receiver, content,callback){
 
-		console.log('Try to saveMsg: ' + 'send--> ' + P_send + ' receiver--> ' + P_receiver);
+		console.log('Try to saveMsg: ' + 'send--> ' + send + ' receiver--> ' + receiver);
 		
 		var msg = new Message({
-			send: P_send,
-			receiver: P_receiver,
+			send: send,
+			receiver: receiver,
 			date: new Date(),
-			content: P_content,
+			content: content,
 			read: false
 		});
 		
 		msg.save(function(err){
 			if(err){
-				return console.log(err);
-			};
-			return console.log('Msg has been saved. Detail: ' + msg);	  
+				console.log('fail to save Msg. err: ' + err);
+				callback(false);
+			}else{
+				console.log('Msg has been saved. Detail: ' + msg);
+				callback(true);
+			}
+				  
 		});
 		
 		console.log('saveMsg comment was send');
 	};
 
-	var findMsgUnread = function(P_receiver, callback){
-		Message.find({ receiver: P_receiver, read: false }, function(err, doc){
+
+	/*
+		{
+			"name": "findMsgUnread",
+			"param": {
+				"receiver": "receiver_uid"
+			},
+			"callback": {
+				"doc": "Message Unread"
+			}
+		}
+	*/
+	var findMsgUnread = function(receiver, callback){
+		Message.find({ receiver: receiver, read: false }, function(err, doc){
 			console.log('------------Message unRead--------------');
 			console.log(doc);
 			callback(doc);
 		})
 	};
 
-
-	var deleteMsg = function(P__id,callback){
-		Message.remove({ _id: P__id }, function(err,docs){
-			console.log('deleteMsg:====>' + P__id);
+	/*
+		{
+			"name": "deleteMsg",
+			"param": {
+				"_id": "Message primary key"
+			},
+			"callback": {
+				"docs": "Msg has benn delete"
+			}
+		}
+	*/
+	var deleteMsg = function(_id,callback){
+		Message.remove({ _id: _id }, function(err,docs){
+			console.log('deleteMsg:====>' + _id);
 			console.log(docs);
 			callback(docs);
 		})
